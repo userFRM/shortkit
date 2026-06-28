@@ -1,0 +1,42 @@
+name: nightly
+
+# Same-day coverage from FINRA's consolidated NMS daily short-volume files.
+# nightly-append resumes from the last date present and fetches the missing
+# trading days, merging by (date, symbol) into the current-year file. FINRA
+# publishes the prior day's file in the morning Eastern time; 08:00 UTC weekdays
+# is after that window.
+
+on:
+  schedule:
+    - cron: "0 8 * * 1-5"
+  workflow_dispatch: {}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    env:
+      RUST_LOG: info
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build CLI
+        run: cargo build --release --bin shortkit-cli
+      - name: Pull missing trading days
+        run: ./target/release/shortkit-cli nightly-append
+        continue-on-error: true
+      - name: Regenerate manifest
+        run: ./target/release/shortkit-cli manifest
+      - name: Commit if changed
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "github-actions"
+          git add data/
+          if git diff --cached --quiet; then
+            echo "no changes to commit"
+          else
+            git commit -m "chore(data): nightly $(date -u +%Y-%m-%d)"
+            git push
+          fi

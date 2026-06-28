@@ -1,0 +1,36 @@
+[package]
+name = "shortkit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+repository.workspace = true
+documentation.workspace = true
+description = "US daily short-sale volume for Rust, from FINRA public consolidated NMS files."
+readme = "../../README.crates.md"
+exclude = [
+    "/data",
+    "/docs",
+    "/.github",
+    "/cli",
+    "CONTRIBUTING.md",
+]
+
+[dependencies]
+thiserror.workspace = true
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+reqwest = { workspace = true }
+bytes = { workspace = true }
+futures = { workspace = true }
+sha2 = { workspace = true }
+arrow = { workspace = true }
+parquet = { workspace = true }
+directories = "5"
+
+[dev-dependencies]
+tokio = { workspace = true }
+sha2 = { workspace = true }
+tempfile = "3"
+wiremock = "0.6"

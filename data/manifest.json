@@ -1,0 +1,11 @@
+{
+  "shortvol-2018.parquet": "sha256:5c888327eaf638ef59636d46a0a3768b628af90ef3d7adf1b064c5e32c7454cf",
+  "shortvol-2019.parquet": "sha256:9c32df318ac5e13e9b9159c7e2e0e09396ce50a3e73691495190219808578558",
+  "shortvol-2020.parquet": "sha256:de7475d5e5d0745725e03060a0cf7c92c5c71155348374a1bdb185073061dcf7",
+  "shortvol-2021.parquet": "sha256:1a400b4a2022ca3b6feaf4a99f3883fc5b7c7b72091af347c1b83ecda7f06fc6",
+  "shortvol-2022.parquet": "sha256:b3e4bedd81ce3a50814a5a1c5dc14a27ade19550b6843db20f2d8deb222883d7",
+  "shortvol-2023.parquet": "sha256:cdd7abbb5259daac90f547b87c2c4c12eba6ee38d07aade4e6296a8105599b06",
+  "shortvol-2024.parquet": "sha256:c1073a65f9194382cc634c5e6cd512bd34e986fe09866acfe7e5e13b13daabb4",
+  "shortvol-2025.parquet": "sha256:fac1d2a576fb7524e4b9fca71c031dfc5070bbbbb93940a3a24bce8eaf581563",
+  "shortvol-2026.parquet": "sha256:788796f11dab1112dc775005ba068900ea866c5d4240723dc982a4fd2c76f581"
+}

@@ -1,0 +1,38 @@
+name: backfill
+
+on:
+  workflow_dispatch:
+    inputs:
+      from:
+        description: "First year to backfill (FINRA retains roughly the last 8 years)"
+        required: false
+        default: "2018"
+      to:
+        description: "Last year to backfill (default: current year)"
+        required: false
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    env:
+      RUST_LOG: info
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build CLI
+        run: cargo build --release --bin shortkit-cli
+      - name: Backfill
+        run: |
+          ARGS="--from ${{ inputs.from }}"
+          if [ -n "${{ inputs.to }}" ]; then ARGS="$ARGS --to ${{ inputs.to }}"; fi
+          ./target/release/shortkit-cli backfill $ARGS
+      - name: Commit data
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "github-actions"
+          git add data/
+          git diff --cached --quiet || git commit -m "chore(data): backfill via workflow_dispatch"
+          git push
